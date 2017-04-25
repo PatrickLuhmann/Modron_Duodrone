@@ -13,5 +13,7 @@ public class PLObjectTest {
 	@Test
 	public void basic() throws Exception {
 		assertEquals("PLObject", PLObject.getClassName());
+
+		PLObject obj1 = PLObject.builder().posX(1).posY(2).velX(3).velY(4).build();
 	}
 }
