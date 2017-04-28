@@ -1,11 +1,18 @@
 package com.patrickluhmann.plobjectslibrary;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PLObjectTest {
 	@Test
 	public void updatePosition_NoVelocity() {
@@ -125,12 +132,11 @@ public class PLObjectTest {
 		assertEquals(1, actInts[0]);
 		assertEquals(2, actInts[1]);
 
-		assertEquals(Color.WHITE, obj0.getColor());
-
 		// Specify all values
+		Bitmap testBitmap = mock(Bitmap.class);
 		PLObject obj1 = PLObject.builder(123, 456)
-			.color(Color.BLUE)
 			.posX(1).posY(2)
+			.skin(testBitmap)
 			.velX(3).velY(4)
 			.build();
 
@@ -145,7 +151,5 @@ public class PLObjectTest {
 		obj1.getSize(actInts);
 		assertEquals(123, actInts[0]);
 		assertEquals(456, actInts[1]);
-
-		assertEquals(Color.BLUE, obj1.getColor());
 	}
 }
