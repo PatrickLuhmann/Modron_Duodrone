@@ -15,100 +15,19 @@ import static org.mockito.Mockito.mock;
 @RunWith(MockitoJUnitRunner.class)
 public class PLObjectTest {
 	@Test
-	public void updatePosition_NoVelocity() {
+	public void adjustVelocity() {
 		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(0).velY(0).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
+		float[] vel = new float[2];
 
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100, actFloats[0], 0.0d);
-		assertEquals(200, actFloats[1], 0.0d);
-	}
+		obj.adjustVelocity(1.5f, 2.5f);
+		obj.getVelocity(vel);
+		assertEquals(1.5f, vel[0], 0.0d);
+		assertEquals(2.5f, vel[1], 0.0d);
 
-	@Test
-	public void updatePosition_PositiveXVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(20).velY(0).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100 + deltaT * 20, actFloats[0], 0.0d);
-		assertEquals(200, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_NegativeXVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(-30).velY(0).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100 + deltaT * -30, actFloats[0], 0.0d);
-		assertEquals(200, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_PositiveYVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(0).velY(40).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100, actFloats[0], 0.0d);
-		assertEquals(200 + deltaT * 40, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_NegativeYVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(0).velY(-50).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100, actFloats[0], 0.0d);
-		assertEquals(200 + deltaT * -50, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_PositiveBothVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(60).velY(40).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100 + deltaT * 60, actFloats[0], 0.0d);
-		assertEquals(200 + deltaT * 40, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_NegativeBothVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(-70).velY(-50).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100 + deltaT * -70, actFloats[0], 0.0d);
-		assertEquals(200 + deltaT * -50, actFloats[1], 0.0d);
-	}
-
-	@Test
-	public void updatePosition_MixedVelocity() {
-		PLObject obj = PLObject.builder(10, 10).posX(100).posY(200).velX(-70).velY(50).build();
-		float deltaT = 0.01f;
-		float[] actFloats = new float[2];
-
-		obj.updatePosition(deltaT);
-		obj.getPosition(actFloats);
-		assertEquals(100 + deltaT * -70, actFloats[0], 0.0d);
-		assertEquals(200 + deltaT * 50, actFloats[1], 0.0d);
-	}
+		obj.adjustVelocity(-11.5f, -12.5f);
+		obj.getVelocity(vel);
+		assertEquals(-10.0f, vel[0], 0.0d);
+		assertEquals(-10.0f, vel[1], 0.0d);	}
 
 	@Test
 	public void construction() throws Exception {
