@@ -111,6 +111,10 @@ public class PLObject {
 		rect.offsetTo((int)posX, (int)posY);
 	}
 
+	public void adjustPosition(float deltaX, float deltaY) {
+		setPosition(posX + deltaX, posY + deltaY);
+	}
+
 	public void getVelocity(float[] pos) {
 		pos[0] = velX;
 		pos[1] = velY;

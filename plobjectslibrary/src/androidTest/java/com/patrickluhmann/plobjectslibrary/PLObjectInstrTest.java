@@ -17,6 +17,30 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class PLObjectInstrTest {
 	@Test
+	public void adjustPosition_Multiple() {
+		PLObject obj = PLObject.builder(16,16)
+			.posX(100).posY(200)
+			.velX(300).velY(400)
+			.build();
+
+		float[] pos = new float[2];
+
+		obj.getPosition(pos);
+		assertEquals(100, pos[0], 0.0f);
+		assertEquals(200, pos[1], 0.0f);
+
+		obj.adjustPosition(17.3f, 29.5f);
+		obj.getPosition(pos);
+		assertEquals(117.3f, pos[0], 0.0001f);
+		assertEquals(229.5, pos[1], 0.0001f);
+
+		obj.adjustPosition(-754.788f, -857.301f);
+		obj.getPosition(pos);
+		assertEquals(-637.488f, pos[0], 0.0001f);
+		assertEquals(-627.801f, pos[1], 0.0001f);
+	}
+
+	@Test
 	public void willCollide_NoBecauseNotMoving() {
 		PLObject objMoving = PLObject.builder(10, 10)
 			.posX(100).posY(100)
